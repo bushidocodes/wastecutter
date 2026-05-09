@@ -55,9 +55,9 @@ SCREEN SECTION.
    05 LINE 4 COL 15 VALUE "==========================================".
    05 LINE 6 COL 25 VALUE "  GAME OVER  " HIGHLIGHT.
    05 LINE 8 COL 15 VALUE "   ANGRY MOB RIOTS!   " HIGHLIGHT.
-   05 LINE 10 COL 20 VALUE "  o   o   o   o  ".
-   05 LINE 11 COL 20 VALUE " /|\\ /|\\ /|\\ /|\\ ".
-   05 LINE 12 COL 20 VALUE " / \\ / \\ / \\ / \\ ".
+   05 LINE 10 COL 18 VALUE "   o     o     o     o   ".
+   05 LINE 11 COL 18 VALUE "  /|\   /|\   /|\   /|\  ".
+   05 LINE 12 COL 18 VALUE "  / \   / \   / \   / \  ".
    05 LINE 14 COL 10 VALUE "Your approval hit ZERO. The citizens revolt!".
    05 LINE 16 COL 15 VALUE "==========================================".
    05 LINE 19 COL 20 VALUE "Press ENTER to exit...".

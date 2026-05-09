@@ -5,46 +5,69 @@ PROGRAM-ID. WasteCutter.
 
 DATA DIVISION.
 WORKING-STORAGE SECTION.
-01 PLAYER-NAME PIC X(30).
-01 WASTE-CUT PIC 9(12) VALUE 0.
-01 CHOICE PIC 9.
-01 CONTINUE-FLAG PIC X VALUE 'Y'.
+01 PLAYER-NAME      PIC X(30).
+01 WASTE-CUT       PIC 9(12) VALUE 0.
+01 CHOICE          PIC 9 VALUE 0.
+01 CONTINUE-FLAG   PIC X VALUE 'Y'.
+
+01 SCREEN-VARS.
+   05 STATUS-LINE  PIC X(80) VALUE SPACES.
+
+SCREEN SECTION.
+01 MAIN-SCREEN.
+   05 BLANK SCREEN BACKGROUND-COLOR 0 FOREGROUND-COLOR 7.
+   05 LINE 1 COL 1 TO 80 VALUE "══════════════════════════════════════════════════════════════════════════════" FOREGROUND-COLOR 1.
+   05 LINE 2 COL 20 VALUE "WASTE CUTTER" FOREGROUND-COLOR 14 HIGHLIGHT.
+   05 LINE 2 COL 40 VALUE "- Cut Government Waste! -" FOREGROUND-COLOR 11.
+   05 LINE 3 COL 1 TO 80 VALUE "══════════════════════════════════════════════════════════════════════════════" FOREGROUND-COLOR 1.
+
+   05 LINE 5 COL 5 VALUE "Player:" FOREGROUND-COLOR 10.
+   05 LINE 5 COL 15 PIC X(30) FROM PLAYER-NAME FOREGROUND-COLOR 15.
+
+   05 LINE 5 COL 55 VALUE "Total Cut:" FOREGROUND-COLOR 10.
+   05 LINE 5 COL 67 PIC ZZZ,ZZZ,ZZZ,ZZ9 FROM WASTE-CUT FOREGROUND-COLOR 14.
+
+   05 LINE 7 COL 5 VALUE "Mission Briefing:" FOREGROUND-COLOR 11.
+   05 LINE 8 COL 5 VALUE "You are a heroic waste slayer fighting bureaucratic bloat and pork spending.".
+
+   05 LINE 11 COL 5 VALUE "Available Actions:" FOREGROUND-COLOR 11.
+   05 LINE 13 COL 10 VALUE "1. Slash redundant regulations          (+ $50M)".
+   05 LINE 14 COL 10 VALUE "2. Terminate ghost projects            (+ $250M)".
+   05 LINE 15 COL 10 VALUE "3. Cut bureaucratic bloat              (+ $150M)".
+   05 LINE 16 COL 10 VALUE "4. Audit pork-barrel spending          (+ $300M)".
+   05 LINE 17 COL 10 VALUE "5. Quit mission".
+
+   05 LINE 20 COL 5 VALUE "Enter choice (1-5): " FOREGROUND-COLOR 15.
+   05 LINE 20 COL 26 PIC 9 TO CHOICE FOREGROUND-COLOR 14.
+
+   05 LINE 24 COL 1 TO 80 VALUE "══════════════════════════════════════════════════════════════════════════════" FOREGROUND-COLOR 1.
 
 PROCEDURE DIVISION.
 MAIN-LOGIC.
-    DISPLAY "=== WASTE CUTTER: Cut Government Waste Adventure ==="
-    DISPLAY "What is your name, waste slayer? " WITH NO ADVANCING
+    DISPLAY "Enter your name, waste slayer: " WITH NO ADVANCING
     ACCEPT PLAYER-NAME
-    DISPLAY "Welcome, " FUNCTION TRIM(PLAYER-NAME) "! Let's cut some waste."
+
     PERFORM GAME-LOOP UNTIL CONTINUE-FLAG = 'N'
+
     DISPLAY "Thanks for cutting $" WASTE-CUT " in government waste!"
     STOP RUN.
 
 GAME-LOOP.
-    DISPLAY " "
-    DISPLAY "Total waste cut so far: $" WASTE-CUT
-    DISPLAY "Choose action:"
-    DISPLAY "1. Slash redundant regulations ($50M)"
-    DISPLAY "2. Terminate ghost projects ($250M)"
-    DISPLAY "3. Cut bureaucratic bloat ($150M)"
-    DISPLAY "4. Audit pork-barrel spending ($300M)"
-    DISPLAY "5. Quit mission"
-    ACCEPT CHOICE
+    MOVE 0 TO CHOICE
+    DISPLAY MAIN-SCREEN
+    ACCEPT MAIN-SCREEN
+
     EVALUATE CHOICE
         WHEN 1
             ADD 50000000 TO WASTE-CUT
-            DISPLAY "Red tape slashed! +$50M"
         WHEN 2
             ADD 250000000 TO WASTE-CUT
-            DISPLAY "Ghost projects terminated! +$250M"
         WHEN 3
             ADD 150000000 TO WASTE-CUT
-            DISPLAY "Bureaucracy reduced! +$150M"
         WHEN 4
             ADD 300000000 TO WASTE-CUT
-            DISPLAY "Pork barrel audited and cut! +$300M"
         WHEN 5
             MOVE 'N' TO CONTINUE-FLAG
         WHEN OTHER
-            DISPLAY "Invalid choice. Try again."
+            CONTINUE
     END-EVALUATE.

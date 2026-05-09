@@ -2,8 +2,8 @@
 
 all: hello
 
-hello: hello.cob
-	cobc -x -o hello hello.cob
+hello: hello.cbl
+	cobc -x -o hello hello.cbl
 
 clean:
 	rm -f hello

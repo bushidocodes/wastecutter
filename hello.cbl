@@ -41,7 +41,7 @@ SCREEN SECTION.
    05 LINE 13 COL 10 VALUE "1. Investigate waste          (+$30M, +Approval)".
    05 LINE 14 COL 10 VALUE "2. Propose bold cuts         (+$200M, -Approval risk)".
    05 LINE 15 COL 10 VALUE "3. Rally public support      (+Approval, +$20M)".
-   05 LINE 16 COL 10 VALUE "4. Media leak                (+Approval, small cut)".
+   05 LINE 16 COL 10 VALUE "4. Media leak                (+Approval, +$10M)".
    05 LINE 17 COL 10 VALUE "5. Relocate to new dept      (change flavor)".
    05 LINE 18 COL 10 VALUE "6. Quit mission".
 
@@ -103,7 +103,7 @@ GAME-LOOP.
             ADD 10 TO APPROVAL
             MOVE "Rallies succeed. Support surges, small wins add up." TO EVENT-TEXT
         WHEN 4
-            ADD 50000000 TO WASTE-CUT
+            ADD 10000000 TO WASTE-CUT
             ADD 8 TO APPROVAL
             MOVE "Media exposes waste. Approval rises, cuts made." TO EVENT-TEXT
         WHEN 5

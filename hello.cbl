@@ -66,29 +66,33 @@ MAIN-LOGIC.
     ACCEPT PLAYER-NAME
     MOVE "Welcome! Balance bold action with public support." TO EVENT-TEXT
 
-    PERFORM GAME-LOOP UNTIL CONTINUE-FLAG = 'N' OR TURNS-LEFT = 0 OR APPROVAL <= 0
-
-    IF APPROVAL <= 0
-        DISPLAY GAME-OVER-SCREEN
-        ACCEPT OMITTED
-        STOP RUN
-    END-IF
+    PERFORM GAME-LOOP UNTIL CONTINUE-FLAG = 'N' OR TURNS-LEFT = 0
 
     IF CONTINUE-FLAG = 'N'
         DISPLAY "You resigned from the mission. The waste remains."
         DISPLAY "Final: $" WASTE-CUT " cut | Approval: " APPROVAL
+        DISPLAY "Press ENTER to exit..."
+        ACCEPT OMITTED
         STOP RUN
     END-IF
 
     IF WASTE-CUT >= 1000000000 AND APPROVAL >= 50
         DISPLAY "VICTORY! You slashed $" WASTE-CUT " with strong approval. Hero of the people!"
-    ELSE IF WASTE-CUT >= 400000000
-        DISPLAY "Solid effort. You cut significant waste but faced resistance."
     ELSE
-        DISPLAY "Mission incomplete. Waste lingers and approval tanked."
+        IF WASTE-CUT >= 400000000
+            DISPLAY "Solid effort. You cut significant waste but faced resistance."
+        ELSE
+            DISPLAY "Mission incomplete. Waste lingers and approval tanked."
+        END-IF
     END-IF
     DISPLAY "Final: $" WASTE-CUT " cut | Approval: " APPROVAL
+    DISPLAY "Press ENTER to exit..."
+    ACCEPT OMITTED
     STOP RUN.
+
+CLAMP-APPROVAL.
+    IF APPROVAL > 100 MOVE 100 TO APPROVAL END-IF
+    IF APPROVAL < 0  MOVE 0   TO APPROVAL END-IF.
 
 GAME-LOOP.
     MOVE 0 TO CHOICE
@@ -119,27 +123,26 @@ GAME-LOOP.
             SUBTRACT 1 FROM TURNS-LEFT
             EVALUATE LOCATION
                 WHEN "Oval Office" MOVE "Pentagon" TO LOCATION
-                WHEN "Pentagon" MOVE "Congress" TO LOCATION
-                WHEN "Congress" MOVE "EPA" TO LOCATION
-                WHEN "EPA" MOVE "Oval Office" TO LOCATION
+                WHEN "Pentagon"   MOVE "Congress" TO LOCATION
+                WHEN "Congress"   MOVE "EPA"      TO LOCATION
+                WHEN "EPA"        MOVE "Oval Office" TO LOCATION
             END-EVALUATE
             MOVE "Relocated. New challenges ahead." TO EVENT-TEXT
         WHEN 6
-            SUBTRACT 1 FROM TURNS-LEFT
             MOVE 'N' TO CONTINUE-FLAG
         WHEN OTHER
             MOVE "Invalid. Focus!" TO EVENT-TEXT
     END-EVALUATE
-    IF APPROVAL > 100 MOVE 100 TO APPROVAL END-IF
-    IF APPROVAL < 0 MOVE 0 TO APPROVAL END-IF
+    PERFORM CLAMP-APPROVAL
     IF FUNCTION MOD(TURNS-LEFT, 4) = 0
         SUBTRACT 8 FROM APPROVAL
         MOVE "Breaking: Scandal rocks administration! Approval hit." TO EVENT-TEXT
+        PERFORM CLAMP-APPROVAL
     END-IF
-    IF APPROVAL > 100 MOVE 100 TO APPROVAL END-IF
-    IF APPROVAL < 0 MOVE 0 TO APPROVAL END-IF
     IF APPROVAL <= 0
         DISPLAY GAME-OVER-SCREEN
         ACCEPT OMITTED
         STOP RUN
     END-IF.
+
+END PROGRAM WasteCutter.

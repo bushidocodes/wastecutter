@@ -74,6 +74,12 @@ MAIN-LOGIC.
         STOP RUN
     END-IF
 
+    IF CONTINUE-FLAG = 'N'
+        DISPLAY "You resigned from the mission. The waste remains."
+        DISPLAY "Final: $" WASTE-CUT " cut | Approval: " APPROVAL
+        STOP RUN
+    END-IF
+
     IF WASTE-CUT >= 1000000000 AND APPROVAL >= 50
         DISPLAY "VICTORY! You slashed $" WASTE-CUT " with strong approval. Hero of the people!"
     ELSE IF WASTE-CUT >= 400000000

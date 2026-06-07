@@ -94,25 +94,29 @@ GAME-LOOP.
     MOVE 0 TO CHOICE
     DISPLAY MAIN-SCREEN
     ACCEPT MAIN-SCREEN
-    SUBTRACT 1 FROM TURNS-LEFT
     EVALUATE CHOICE
         WHEN 1
+            SUBTRACT 1 FROM TURNS-LEFT
             ADD 30000000 TO WASTE-CUT
             ADD 5 TO APPROVAL
             MOVE "Investigation reveals waste. Smart move boosts credibility." TO EVENT-TEXT
         WHEN 2
+            SUBTRACT 1 FROM TURNS-LEFT
             ADD 200000000 TO WASTE-CUT
             SUBTRACT 15 FROM APPROVAL
             MOVE "Bold cuts hit hard! Public angry but waste plummets." TO EVENT-TEXT
         WHEN 3
+            SUBTRACT 1 FROM TURNS-LEFT
             ADD 20000000 TO WASTE-CUT
             ADD 10 TO APPROVAL
             MOVE "Rallies succeed. Support surges, small wins add up." TO EVENT-TEXT
         WHEN 4
+            SUBTRACT 1 FROM TURNS-LEFT
             ADD 10000000 TO WASTE-CUT
             ADD 8 TO APPROVAL
             MOVE "Media exposes waste. Approval rises, cuts made." TO EVENT-TEXT
         WHEN 5
+            SUBTRACT 1 FROM TURNS-LEFT
             EVALUATE LOCATION
                 WHEN "Oval Office" MOVE "Pentagon" TO LOCATION
                 WHEN "Pentagon" MOVE "Congress" TO LOCATION
@@ -121,6 +125,7 @@ GAME-LOOP.
             END-EVALUATE
             MOVE "Relocated. New challenges ahead." TO EVENT-TEXT
         WHEN 6
+            SUBTRACT 1 FROM TURNS-LEFT
             MOVE 'N' TO CONTINUE-FLAG
         WHEN OTHER
             MOVE "Invalid. Focus!" TO EVENT-TEXT

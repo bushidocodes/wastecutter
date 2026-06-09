@@ -3,9 +3,23 @@
 You are a heroic (or villainous) waste slayer in the swamp of government spending. Cut waste, manage approval, dodge scandals, and try not to trigger an angry mob (or AOC's wrath).
 
 ## How to Play
+
+Build with Make:
 ```bash
-cobc -x -o hello hello.cbl
-./hello
+make
+./wastecutter
+```
+
+Or compile directly with GNUCobol:
+```bash
+cobc -x -o wastecutter hello.cbl
+./wastecutter
+```
+
+On Windows (WSL or native GNUCobol):
+```powershell
+make
+.\wastecutter.exe
 ```
 
 Full-screen TUI. Choices matter. Approval is everything. Zero approval? Game over with style.

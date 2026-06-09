@@ -1,11 +1,11 @@
 # Makefile for GNU Cobol
 
-all: hello
+all: wastecutter
 
-hello: hello.cbl
-	cobc -x -o hello hello.cbl
+wastecutter: hello.cbl
+	cobc -x -o wastecutter hello.cbl
 
 clean:
-	rm -f hello
+	rm -f wastecutter wastecutter.exe hello
 
 .PHONY: all clean

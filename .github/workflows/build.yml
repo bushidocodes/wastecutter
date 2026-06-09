@@ -18,6 +18,6 @@ jobs:
         run: |
           cobc -x -o wastecutter \
             -Wall -Wextra \
-            -Wcolumns -Wtruncate -Wunreachable \
+            -Wcolumn-overflow -Wtruncate -Wunreachable \
             -t "-D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wformat -Wformat-security" \
             hello.cbl

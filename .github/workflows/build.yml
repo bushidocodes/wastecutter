@@ -15,9 +15,4 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y gnucobol
 
       - name: Build with warnings and hardening flags
-        run: |
-          cobc -x -o wastecutter \
-            -Wall -Wextra \
-            -Wcolumn-overflow -Wtruncate -Wunreachable \
-            -t "-D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wformat -Wformat-security" \
-            hello.cbl
+        run: make check

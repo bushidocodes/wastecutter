@@ -1,7 +1,7 @@
 # Makefile for GNU Cobol
 
 WARN_FLAGS = -Wall -Wextra -Wcolumn-overflow -Wtruncate -Wunreachable
-HARDEN_FLAGS = -t "-D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wformat -Wformat-security"
+HARDEN_FLAGS = -A "-O2 -D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wformat -Wformat-security" -Q "-fstack-protector-strong"
 
 all: wastecutter
 

@@ -442,6 +442,7 @@ DO-INVESTIGATE.
     ADD WS-DELTA TO APPROVAL
     ADD 3 TO MEDIA-FAVOR
     MOVE WS-AMT TO WASTE-DISP
+    MOVE SPACES TO RESULT-TEXT
     STRING "Audit unlocks the books. Confirmed cut ~$"
         DELIMITED BY SIZE
         FUNCTION TRIM(WASTE-DISP)
@@ -527,6 +528,7 @@ DO-BOLD-CUT.
     END-EVALUATE
     MOVE NPC-NAME(LOC-ID) TO LAST-NPC
     MOVE WS-AMT TO WASTE-DISP
+    MOVE SPACES TO NEWS-TEXT
     STRING "Markets notice: $"
         DELIMITED BY SIZE
         FUNCTION TRIM(WASTE-DISP)
@@ -615,6 +617,7 @@ DO-RELOCATE.
     PERFORM APPLY-LOCATION
     MOVE "N" TO TARGET-INVESTIGATED
     PERFORM PICK-TARGET
+    MOVE SPACES TO RESULT-TEXT
     STRING "Motorcade rolls to "
         DELIMITED BY SIZE
         FUNCTION TRIM(LOCATION-NAME)
@@ -787,6 +790,8 @@ RUN-ADVISOR.
         WHEN OTHER
             MOVE "Operative: a rival NPC wants a deal on your turf."
                 TO RESULT-TEXT
+            *> STRING does not clear the target -- wipe leftover menu text
+            MOVE SPACES TO MENU-1
             STRING "Cut a deal with "
                 DELIMITED BY SIZE
                 FUNCTION TRIM(NPC-NAME(LOC-ID))
@@ -826,6 +831,7 @@ MAYBE-NPC-NEWS.
     END-IF
     PERFORM ROLL-100
     IF WS-ROLL < 35
+        MOVE SPACES TO NEWS-TEXT
         STRING FUNCTION TRIM(LAST-NPC)
             DELIMITED BY SIZE
             " returns fire: op-ed + donors + FOIA barrage."
